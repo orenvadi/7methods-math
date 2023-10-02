@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/orenvadi/7methods/methods"
 	"math"
+
+	"github.com/orenvadi/7methods/methods"
 )
 
 // деления пополам, Ньютона, простой итерации, метод хорд, метод секущих,
@@ -19,7 +20,7 @@ func main() {
 	a := -2.0 // Lower bound of the interval
 	b := 2.0  // Upper bound of the interval
 	x0 := (a + b) / 2
-	//x0 := a
+	// x0 := a
 	tol := 0.0001 // Tolerance
 	maxIterations := 20
 
@@ -58,4 +59,55 @@ func main() {
 		fmt.Printf("Approximate root: %.8f\n", rootSecant)
 	}
 	fmt.Println("\n-------------------------------------------------------------")
+
+	//
+	//
+	// For algebraic equations
+
+	fmt.Printf("\n\n")
+	fmt.Println("+------------------------------------------------------------------------+")
+	fmt.Println("|                          Algebraic Equations                           |")
+	fmt.Println("+------------------------------------------------------------------------+")
+	fmt.Printf("\n\n")
+	//
+	//
+
+	fmt.Println("\n---------------------------Kramer----------------------------")
+
+	AKram := [][]float64{
+		{3, -2, 4},
+		{3, 4, -2},
+		{2, -1, -1},
+	}
+
+	bKram := []float64{21, 9, 10}
+
+	rootsKr, err := methods.KramerMethod(AKram, bKram)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	fmt.Println("Roots:")
+	for i, root := range rootsKr {
+		fmt.Printf("x%d = %.2f\n", i+1, root)
+	}
+	fmt.Println("\n-------------------------------------------------------------")
+
+	fmt.Println("\n---------------------------Gauss----------------------------")
+	AGs := [][]float64{
+		{3, -2, 4},
+		{3, 4, -2},
+		{2, -1, -1},
+	}
+
+	bGs := []float64{21, 9, 10}
+
+	rootsGs := methods.GaussMethod(AGs, bGs)
+
+	fmt.Println("Roots:")
+	for i, root := range rootsGs {
+		fmt.Printf("x%d = %.2f\n", i+1, root)
+	}
+	fmt.Println("\n------------------------------------------------------------")
 }
